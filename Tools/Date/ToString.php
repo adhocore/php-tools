@@ -53,18 +53,18 @@ class ToString {
                 'minute' => 60,
                 'second' => 1,
             );
-            
+
             $diff = abs(($now = time()) - ($time = strtotime($this->date)));
             $suffix = ($diff < 2) ? 'just now' : (($time < $now) ? 'ago' : 'from now');
             $string = '';
-            
+
             foreach ($names as $name => $factor) {
                 if (($quot = floor($diff / $factor)) > 0) {
                     $string .= $quot . ' ' . $name . ($quot == 1 ? '' : 's') . ' ';
                     $diff -= $quot * $factor;
                 }
             }
-            
+
             $this->string = $string . $suffix;
         }
 
@@ -74,4 +74,5 @@ class ToString {
     public function __toString() {
         return $this->getString();
     }
+
 }

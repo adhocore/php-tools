@@ -14,7 +14,7 @@ class English extends System {
 
     public function __construct($number = null) {
         parent::__construct($number);
-        $this->groups = array("", " thousand", " million", " billion", " trillion", " quadrillion", 
+        $this->groups = array("", " thousand", " million", " billion", " trillion", " quadrillion",
             " quintrillion", " sextillion", " septillion", " octillion", " nonillion", " decillion");
     }
 

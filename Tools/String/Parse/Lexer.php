@@ -27,15 +27,15 @@ class Lexer extends Abstracts\Lexer {
 
     protected function getCatchablePatterns() {
         return array(
-        //  '[-]?[0-9]+[.]?[0-9]+', // number
+            //  '[-]?[0-9]+[.]?[0-9]+', // number
             '[\s]+', // white spaces
-        //  '[.][.]+', // dots
+            //  '[.][.]+', // dots
             'a[iu]', '[a]{1,2}', '[e]{1,2}', '[i]{1,2}', '[o]{1,2}', '[u]{1,2}', // vowels
             'c[h]{1,2}', '[y][n]', '[G][yn]', '[bcdfghj-np-tv-z][fghlmpqrvz]', // consonants
             '[^a-z0-9.]', // that need not be converted
         );
     }
-    
+
     protected function getNonCatchablePatterns() {
         return array();
     }
@@ -57,15 +57,15 @@ class Lexer extends Abstracts\Lexer {
         if (preg_match('/[bcdfghj-np-tv-z]+/i', $value, $match)) {
             return self::T_CONSONANT;
         }
-        
+
         return $type;
     }
-    
+
     /**
      * Doctrine\Common\Lexer::scan()
      */
     private function tokenize($input) {
-        return $this->scan($input);        
+        return $this->scan($input);
     }
 
     /**

@@ -20,21 +20,21 @@ abstract class System {
     
     private $number;
     private $decimal;
-    private $words;    
+    private $words;
     private $decimalWords;
 
     abstract public function setDelta();
-    
+
     public function __construct($number = null) {
-        $this->setNumber($number); 
-        $this->tens = array("", " ten", " twenty", " thirty", " forty", " fifty", 
+        $this->setNumber($number);
+        $this->tens = array("", " ten", " twenty", " thirty", " forty", " fifty",
             " sixty", " seventy", " eighty", " ninety");
-        $this->tenplus = array(" ten", " eleven", " twelve", " thirteen", " fourteen", 
+        $this->tenplus = array(" ten", " eleven", " twelve", " thirteen", " fourteen",
             " fiften", " sixteen", " seventeen", " eighteen", " nineteen");
-        $this->ones = array("", " one", " two", " three", " four", " five", 
+        $this->ones = array("", " one", " two", " three", " four", " five",
             " six", " seven", " eight", " nine");
-    }   
-    
+    }
+
     public function setNumber($number) {
         $this->number = $number;
         $this->words = null;
@@ -66,11 +66,11 @@ abstract class System {
         return $this->tens[substr($number, 0, 1)] . $this->ones[substr($number, 1, 1)];
     }
 
-    public function toWords() {        
+    public function toWords() {
         if ($this->words !== null) {
             return $this->words;
         }
-            
+
         $this->setDelta();
         $minus = (substr($this->number, 0, 1) == '-');
         $this->words = ($minus) ? "minus" : "";
@@ -81,14 +81,14 @@ abstract class System {
 
             $ones = $this->ones;
             $this->decimal_words = implode('', array_map(function($n) use ($ones) {
-                return empty($ones[$n]) ? '' : $ones[$n];
-            }, str_split($this->decimal)));
+                                return empty($ones[$n]) ? '' : $ones[$n];
+                            }, str_split($this->decimal)));
         }
 
         $reverse = strrev(preg_replace('/^[-0]*/', '', $this->number));
         $length = strlen($reverse);
 
-        if (($length - (3 - $this->delta)) > $this->delta * count($this->groups)) {            
+        if (($length - (3 - $this->delta)) > $this->delta * count($this->groups)) {
             $this->words = "Too long Number.";
         }
 
@@ -108,9 +108,9 @@ abstract class System {
                     $this->words .= $this->hundredths($v) . $this->groups[$k];
                 }
             }
-        }      
-        
-        return $this->words;        
+        }
+
+        return $this->words;
     }
-    
+
 }

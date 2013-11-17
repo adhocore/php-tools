@@ -20,16 +20,16 @@ class ToDevanagari {
         $this->setInput($input);
         $this->parser = new Parse\Parser($this->input, $html);
     }
-    
+
     public function setInput($input) {
         $this->input = $input;
         $this->output = null;
         return $this;
-    }    
-    
+    }
+
     public function setHtmlEntity() {
         $previous = $this->parser->setHtmlEntity();
-        if (! $previous) {
+        if (!$previous) {
             $this->output = null;
         }
         return $this;
@@ -42,15 +42,16 @@ class ToDevanagari {
     public function debug() {
         $this->parser->getLexer()->tokensView();
     }
-    
+
     public function unicode() {
         if (is_null($this->output)) {
             $this->output = $this->parser->getParsed();
         }
         return $this->output;
     }
-    
+
     public function __toString() {
         return $this->unicode();
     }
+
 }

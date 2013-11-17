@@ -11,15 +11,15 @@ namespace Tools\Number\System;
  * 
  */
 class Devanagari extends System {
-	
-	public function __construct($number = null) {		
-		parent::__construct($number);	  
-		$this->groups = array("" ," thousand", " lakh", " crore", " arab", " kharab", " neel", " padma", 
+
+    public function __construct($number = null) {
+        parent::__construct($number);
+        $this->groups = array("", " thousand", " lakh", " crore", " arab", " kharab", " neel", " padma",
             " shankha", " mahashankha", " padha", " madh", " paraardha", " ant", " mahaant", " shisht", " shinghar");
-	}
-	
-	public function setDelta() {		
-		$this->delta = 2;		
-	}
+    }
+
+    public function setDelta() {
+        $this->delta = 2;
+    }
 
 }
