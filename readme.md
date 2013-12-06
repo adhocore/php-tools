@@ -5,5 +5,5 @@ includes:
 - Number to Words
 - String to Devanagari (transliter)
 - Magento 
-	- Events teference
+	- Events reference
 	- Theme translate CSV generator
