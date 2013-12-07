@@ -111,7 +111,7 @@ class Reference {
 # usage: 
 /*
 $reference = new Tools\Magento\Events\Reference();
-$generator
+$reference
     ->setCorePath('./app/code/core') // path where Mage namespace lives
     ->setCachePath('./var')
     ->tabulate()
