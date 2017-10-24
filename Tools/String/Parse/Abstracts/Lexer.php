@@ -18,15 +18,18 @@
  */
 
 // namespace Doctrine\Common;
+
 namespace Tools\String\Parse\Abstracts;
 
 /**
  * Base class for writing simple lexers, i.e. for creating small DSLs.
  *
  * @since   2.0
+ *
  * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
  * @author  Jonathan Wage <jonwage@gmail.com>
  * @author  Roman Borschel <roman@code-factory.org>
+ *
  * @todo Rename: AbstractLexer
  */
 abstract class Lexer
@@ -34,15 +37,15 @@ abstract class Lexer
     /**
      * @var array Array of scanned tokens
      */
-    private $tokens = array();
+    private $tokens = [];
 
     /**
-     * @var integer Current lexer position in input string
+     * @var int Current lexer position in input string
      */
     private $position = 0;
 
     /**
-     * @var integer Current peek of current lexer position
+     * @var int Current peek of current lexer position
      */
     private $peek = 0;
 
@@ -66,7 +69,7 @@ abstract class Lexer
      */
     public function setInput($input)
     {
-        $this->tokens = array();
+        $this->tokens = [];
         $this->reset();
         $this->scan($input);
     }
@@ -77,9 +80,9 @@ abstract class Lexer
     public function reset()
     {
         $this->lookahead = null;
-        $this->token = null;
-        $this->peek = 0;
-        $this->position = 0;
+        $this->token     = null;
+        $this->peek      = 0;
+        $this->position  = 0;
     }
 
     /**
@@ -93,7 +96,7 @@ abstract class Lexer
     /**
      * Resets the lexer position on the input to the given position.
      *
-     * @param integer $position Position to place the lexical scanner
+     * @param int $position Position to place the lexical scanner
      */
     public function resetPosition($position = 0)
     {
@@ -103,8 +106,9 @@ abstract class Lexer
     /**
      * Checks whether a given token matches the current lookahead.
      *
-     * @param integer|string $token
-     * @return boolean
+     * @param int|string $token
+     *
+     * @return bool
      */
     public function isNextToken($token)
     {
@@ -112,10 +116,11 @@ abstract class Lexer
     }
 
     /**
-     * Checks whether any of the given tokens matches the current lookahead
+     * Checks whether any of the given tokens matches the current lookahead.
      *
      * @param array $tokens
-     * @return boolean
+     *
+     * @return bool
      */
     public function isNextTokenAny(array $tokens)
     {
@@ -135,8 +140,8 @@ abstract class Lexer
      */
     public function moveNext()
     {
-        $this->peek = 0;
-        $this->token = $this->lookahead;
+        $this->peek      = 0;
+        $this->token     = $this->lookahead;
         $this->lookahead = (isset($this->tokens[$this->position]))
             ? $this->tokens[$this->position++] : null;
 
@@ -156,11 +161,12 @@ abstract class Lexer
     }
 
     /**
-     * Checks if given value is identical to the given token
+     * Checks if given value is identical to the given token.
      *
      * @param mixed $value
-     * @param integer $token
-     * @return boolean
+     * @param int   $token
+     *
+     * @return bool
      */
     public function isA($value, $token)
     {
@@ -188,8 +194,9 @@ abstract class Lexer
      */
     public function glimpse()
     {
-        $peek = $this->peek();
+        $peek       = $this->peek();
         $this->peek = 0;
+
         return $peek;
     }
 
@@ -202,30 +209,31 @@ abstract class Lexer
     {
         static $regex;
 
-        if ( ! isset($regex)) {
+        if (!isset($regex)) {
             $regex = '/(' . implode(')|(', $this->getCatchablePatterns()) . ')|'
                    . implode('|', $this->getNonCatchablePatterns()) . '/i';
         }
 
-        $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
+        $flags   = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
         $matches = preg_split($regex, $input, -1, $flags);
 
         foreach ($matches as $match) {
             // Must remain before 'value' assignment since it can change content
             $type = $this->getType($match[0]);
 
-            $this->tokens[] = array(
-                'value' => $match[0],
-                'type'  => $type,
+            $this->tokens[] = [
+                'value'    => $match[0],
+                'type'     => $type,
                 'position' => $match[1],
-            );
+            ];
         }
     }
 
     /**
      * Gets the literal for a given token.
      *
-     * @param integer $token
+     * @param int $token
+     *
      * @return string
      */
     public function getLiteral($token)
@@ -261,7 +269,8 @@ abstract class Lexer
      * Retrieve token type. Also processes the token value if necessary.
      *
      * @param string $value
-     * @return integer
+     *
+     * @return int
      */
     abstract protected function getType(&$value);
 }
