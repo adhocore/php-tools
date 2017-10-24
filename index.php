@@ -15,14 +15,13 @@ echo 'Demo:&lt;br/>',
 </code></pre><hr/>
 <h3>output</h3>
 <?php
-require_once './autoload.php';    
+require_once './autoload.php';
 echo 'Demo:<br/>',
     $n = new \Tools\Number\ToWords(123456789, 'Devanagari'), ' << Devanagari', '<br/>',
-    $n->setSystem('English'), ' << English', '<br/>',        
+    $n->setSystem('English'), ' << English', '<br/>',
     $d = new Tools\String\ToDevanagari('mero naam jitendra adhikaarii ho.'), ' << as unicode', '<br/>',
-    $d->setHtmlEntity(), ' << as html entity', '<br/>',        
+    $d->setHtmlEntity(), ' << as html entity', '<br/>',
     $s = new \Tools\Date\ToString('2011-08-08'), ' << past', '<br/>',
-    $s->setDate('2018-08-08'), ' << future', '<br/>'
-;
+    $s->setDate('2018-08-08'), ' << future', '<br/>';
 ?>
 
